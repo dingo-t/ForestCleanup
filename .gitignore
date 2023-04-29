@@ -1,0 +1,15 @@
+/.ignore
+/.vs
+/.vscode
+/.vsconfig
+/Binaries
+/Config
+/Content
+/DerivedDataCache
+/ForestCleanup.code-workspace
+/ForestCleanup.sln
+/ForestCleanup.uproject
+/Intermediate
+/MAEOakForest.png
+/Platforms
+/Saved
