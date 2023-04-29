@@ -23,12 +23,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, BLueprintReadWrite)
-	int32 Int1;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)	
-	int32 Int2;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString Username;
 

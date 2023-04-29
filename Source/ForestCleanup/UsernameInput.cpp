@@ -17,10 +17,7 @@ void AUsernameInput::BeginPlay()
 {
 	Super::BeginPlay();
 
-
-
-	Validation(Username);
-
+	Validation(Username); 
 
 }
 
