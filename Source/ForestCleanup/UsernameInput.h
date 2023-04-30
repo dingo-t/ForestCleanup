@@ -39,10 +39,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString Username = "5";
 
-	// A TArray is an Unreal engine dynamically sized array
-	// Here you can see that the Array has been set to store Strings and has been named Usernames
+	// A TMap is an Unreal engine dynamically sized Dictionary
+	// Here you can see that the Dictionary has been set to use a string as the key and an integer as the value
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FString> Usernames;
+	TMap<FString, int32> Usernames;
 
 	// I need to prevent the same username from being set multiple times so this boolean variable will dictate if a new Username can be added to the Array or not
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
