@@ -48,6 +48,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
     bool UsernameSet;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int32 UserLength;
+
+
 	// UFUNCTION also allows Unreal to use the function in blueprints
 	// The function is set to return a boolean value and takes the parameter of the String InputUsername 
 	UFUNCTION(BlueprintCallable)

@@ -45,6 +45,9 @@ void AUsernameInput::Tick(float DeltaTime)
 		UsernameSet = true;
 		Usernames.Add(Username);
 	}
+
+	UserLength = Username.Len();
+	UE_LOG(LogTemp, Error, TEXT("Your message: %d"), UserLength);
 }
 
 
