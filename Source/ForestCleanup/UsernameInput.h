@@ -6,6 +6,11 @@
 #include "GameFramework/Actor.h"
 #include "UsernameInput.generated.h"
 
+/* This is the header file where all of the variables, collections and functions are declared 
+so that they can be implemented in the cpp file. 
+I have not used any local variables or collections so these are all of the variables and collections that are being used in the program */
+
+
 UCLASS()
 class FORESTCLEANUP_API AUsernameInput : public AActor
 {
@@ -16,16 +21,35 @@ public:
 	AUsernameInput();
 
 protected:
-	// Called when the game starts or when spawned
+	// Called when the game starts or when spawned 
 	virtual void BeginPlay() override;
 
+
+	// everything under public is the functions and collections that i have added nothing else in this file has been added by me.
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FString Username;
+	/* I have set all of the collections functions and variables under the Public class 
+	so that i can use the functions and collections in other files if i need to+. */
 
+	/* Setting the variable as a UPROPERTY allows Enreal Engine to access the variable so that it can be used in blueprints and in the engine.
+	the EditAnywhere and BlueprintReadWrite tags tell Unreal that the variable can be read and edited by blueprints
+	The default value is set to "5" so that the function returns false by default */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FString Username = "5";
+
+	// A TArray is an Unreal engine dynamically sized array
+	// Here you can see that the Array has been set to store Strings and has been named Usernames
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FString> Usernames;
+
+	// I need to prevent the same username from being set multiple times so this boolean variable will dictate if a new Username can be added to the Array or not
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    bool UsernameSet;
+
+	// UFUNCTION also allows Unreal to use the function in blueprints
+	// The function is set to return a boolean value and takes the parameter of the String InputUsername 
 	UFUNCTION(BlueprintCallable)
 	bool Validation(FString InputUsername); 
 
