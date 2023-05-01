@@ -25,14 +25,6 @@ void AUsernameInput::BeginPlay()
 {	
 	Super::BeginPlay();
 
-	if (UserSet == false)
-	{
-		if (VerifyUsername(Username))
-		{
-			UE_LOG(LogTemp, Error, TEXT("Username is taken"));
-			SetUsername(Username);
-		}
-	}
 }
 
 
@@ -42,8 +34,28 @@ void AUsernameInput::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	
+	if (UserSet == false)
+	{
+		if (VerifyUsername(Username))
+		{
+			SetUsername(Username);
+		}
+	}
+	// UE_LOG(LogTemp, Warning, TEXT("The boolean value is %s"), ( GameEnded ? TEXT("true") : TEXT("false") ));
 
+	if (GameEnded && GotTime == false)
+	{
+		ReturnedTime = GetTime(GameTimeSeconds);
+		Usernames.Add(Username, ReturnedTime);
+		
+		if (Usernames.Contains(Username))
+		{
+			MapInt = *Usernames.Find(Username);
+		}
+		UE_LOG(LogTemp, Warning, TEXT("The time for %s is %d"), *Username, MapInt);
+		GotTime = true;
+	}
+	
 	/* this if statement checks if the Validation function has returned true 
 	and that the username has not already been added to the array, to prevent having multiple instances of the same name on the array. 
 	It also runs the boundary check function to make sure the username isnt longer than 20 characters. If these conditions are met */
@@ -129,6 +141,14 @@ void AUsernameInput::SetUsername(FString InputUsername)
 	// UE_LOG(LogTemp, Error, TEXT("Username valid"));
 }
 
+// This function gets the time since the level was created
+
+int AUsernameInput::GetTime(int32 PlayerTime)
+{
+	PlayerTime = GetWorld()->GetTimeSeconds();;
+	//UE_LOG(LogTemp, Warning, TEXT("The integer value is: %d"), PlayerTime);
+	return PlayerTime;
+}
 
 
 

@@ -52,6 +52,21 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
     int32 MaxUserLength = 20;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool GameEnded = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 GameTimeSeconds;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool GotTime = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MapInt;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ReturnedTime;
+
 	// Collections
 
 	// A TMap is an Unreal engine dynamically sized Dictionary
@@ -78,4 +93,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetUsername(FString InputUsername);
+
+	UFUNCTION(BlueprintCallable)
+	int GetTime(int32 PlayerTime);
 };
