@@ -34,27 +34,48 @@ public:
 	so that i can use the functions and collections in other files if i need to+. */
 
 	/* Setting the variable as a UPROPERTY allows Enreal Engine to access the variable so that it can be used in blueprints and in the engine.
-	the EditAnywhere and BlueprintReadWrite tags tell Unreal that the variable can be read and edited by blueprints
-	The default value is set to "5" so that the function returns false by default */
+	the EditAnywhere and BlueprintReadWrite tags tell Unreal that the variable can be read and edited by blueprints */
+	
+	// Variables
+	
+	// The default value is set to "5" so that the function returns false by default 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString Username = "5";
+
+	// I need to prevent the same username from being set multiple times so this boolean variable will dictate if a new Username can be added to the Array or not
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    bool UserSet = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int32 UserLength;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int32 MaxUserLength = 20;
+
+	// Collections
 
 	// A TMap is an Unreal engine dynamically sized Dictionary
 	// Here you can see that the Dictionary has been set to use a string as the key and an integer as the value
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<FString, int32> Usernames;
 
-	// I need to prevent the same username from being set multiple times so this boolean variable will dictate if a new Username can be added to the Array or not
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    bool UsernameSet;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 UserLength;
-
+	// Functions
 
 	// UFUNCTION also allows Unreal to use the function in blueprints
 	// The function is set to return a boolean value and takes the parameter of the String InputUsername 
 	UFUNCTION(BlueprintCallable)
 	bool Validation(FString InputUsername); 
 
+	// This function checks if a Username is not outside the max boundary of 20 characters 
+	UFUNCTION(BlueprintCallable)
+	bool IsUsernameValidLength(FString InputUsername); 
+
+	UFUNCTION(BlueprintCallable)
+	bool IsUsernameTaken(FString InputUsername);
+
+	UFUNCTION(BlueprintCallable)
+	bool VerifyUsername(FString InputUsername);
+
+	UFUNCTION(BlueprintCallable)
+	void SetUsername(FString InputUsername);
 };
