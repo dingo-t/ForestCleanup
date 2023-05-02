@@ -56,9 +56,6 @@ public:
 	bool GameEnded = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 GameTimeSeconds;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool GotTime = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -66,6 +63,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 ReturnedTime;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 TimeAtUserSet;
 
 	// Collections
 
@@ -95,5 +95,5 @@ public:
 	void SetUsername(FString InputUsername);
 
 	UFUNCTION(BlueprintCallable)
-	int GetTime(int32 PlayerTime);
+	int GetTime(int32 UserSetTime);
 };
