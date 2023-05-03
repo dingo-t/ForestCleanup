@@ -15,6 +15,7 @@ AUsernameInput::AUsernameInput()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// adding keys and values for testing
 	
 }
 
@@ -25,9 +26,8 @@ void AUsernameInput::BeginPlay()
 {	
 	Super::BeginPlay();
 
+	
 }
-
-
 
 // Called every frame
 void AUsernameInput::Tick(float DeltaTime)
@@ -43,10 +43,9 @@ void AUsernameInput::Tick(float DeltaTime)
 	}
 	// UE_LOG(LogTemp, Warning, TEXT("The boolean value is %s"), ( GameEnded ? TEXT("true") : TEXT("false") ));
 
-	
+	ReturnedTime = GetTime(TimeAtUserSet);
 	if (GameEnded && GotTime == false)
 	{
-		ReturnedTime = GetTime(TimeAtUserSet);
 		Usernames.Add(Username, ReturnedTime);
 		
 		if (Usernames.Contains(Username))
@@ -56,7 +55,38 @@ void AUsernameInput::Tick(float DeltaTime)
 		UE_LOG(LogTemp, Warning, TEXT("The time for %s is %d"), *Username, MapInt);
 		GotTime = true;
 	}
+
+	if (GameEnded)
+	{
+		// gets the values of the Usernames TMap
+		Usernames.GenerateValueArray(ScoreValues);
 	
+		// this sorts the values in descending order
+		ScoreValues.Sort([](int32 A, int32 B) { return A < B; });
+
+		// adds the top 5 values to the scorevalues TMap
+		int32 Count = 0;
+		for (int32 i = 0; i < ScoreValues.Num() && Count < 5; ++i)
+		{
+    		for (auto& Pair : Usernames)
+    		{	
+        		if (Pair.Value == ScoreValues[i])
+        		{
+            		Scoreboard.Add(Pair.Key, Pair.Value);
+            		++Count;
+           	   	 break;
+       			}
+    		}
+		}
+
+		// Print the contents of the scoreboard map
+		for (auto& Pair : Scoreboard)
+		{
+   		UE_LOG(LogTemp, Warning, TEXT("%s: %d"), *Pair.Key, Pair.Value);
+		}
+		UE_LOG(LogTemp, Warning, TEXT("Usernames"),);
+	
+	}
 
 	/* this if statement checks if the Validation function has returned true 
 	and that the username has not already been added to the array, to prevent having multiple instances of the same name on the array. 
@@ -137,11 +167,16 @@ void AUsernameInput::SetUsername(FString InputUsername)
 {
 	// Adds the Username to the MTap
 	// When you add a key to a TMap without a value the value is set to nothing 
-	Usernames.Add(Username);
+	Usernames.Add(InputUsername);
 	// setting this ensures that the username wont be set again until the game restarts 
 	UserSet = true;
 	// UE_LOG(LogTemp, Error, TEXT("Username valid"));
 	TimeAtUserSet = GetTime(TimeAtUserSet);
+	UE_LOG(LogTemp, Error, TEXT("%s"), *InputUsername);
+	for (auto& Pair : Usernames)
+	{
+    UE_LOG(LogTemp, Warning, TEXT("%s: %d"), *Pair.Key, Pair.Value);
+	}
 }
 
 // This function gets the time since the level was created
@@ -156,6 +191,25 @@ int AUsernameInput::GetTime(int32 UserSetTime)
 
 
 
+TMap<FString, int32> GetTop5Users(TMap<FString, int32> Usernames)
+{
+    TMap<FString, int32> Top5Users;
+
+    // Sort the values in descending order
+    Usernames.ValueSort(TGreater<int32>());
+
+    // Extract the top 5 values and add them to the new map
+    int32 i = 0;
+    for (const auto& Pair : Usernames)
+    {
+        if (i >= 5) break;
+
+        Top5Users.Add(Pair.Key, Pair.Value);
+        ++i;
+    }
+
+    return Top5Users;
+}
 
 
 

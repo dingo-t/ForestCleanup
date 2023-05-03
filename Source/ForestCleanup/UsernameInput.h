@@ -50,7 +50,7 @@ public:
     int32 UserLength;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 MaxUserLength = 20;
+    int32 MaxUserLength = 10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool GameEnded = false;
@@ -74,6 +74,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<FString, int32> Usernames;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<FString, int32> Scoreboard;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<int32> ScoreValues;
+
 	// Functions
 
 	// UFUNCTION also allows Unreal to use the function in blueprints
@@ -96,4 +102,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	int GetTime(int32 UserSetTime);
+
+	
 };
