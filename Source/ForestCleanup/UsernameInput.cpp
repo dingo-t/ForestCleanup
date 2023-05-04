@@ -34,6 +34,7 @@ void AUsernameInput::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+
 	if (UserSet == false)
 	{
 		if (VerifyUsername(Username))
@@ -41,12 +42,20 @@ void AUsernameInput::Tick(float DeltaTime)
 			SetUsername(Username);
 		}
 	}
+
+	if (UserSet)
+	{
+		MillisecondsPassed += DeltaTime;
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("The float value is: %f"), MillisecondsPassed);
+
 	// UE_LOG(LogTemp, Warning, TEXT("The boolean value is %s"), ( GameEnded ? TEXT("true") : TEXT("false") ));
 
-	ReturnedTime = GetTime(TimeAtUserSet);
+
 	if (GameEnded && GotTime == false)
 	{
-		Usernames.Add(Username, ReturnedTime);
+		Usernames.Add(Username, MillisecondsPassed);
 		
 		if (Usernames.Contains(Username))
 		{
@@ -62,11 +71,11 @@ void AUsernameInput::Tick(float DeltaTime)
 		Usernames.GenerateValueArray(ScoreValues);
 	
 		// this sorts the values in descending order
-		ScoreValues.Sort([](int32 A, int32 B) { return A < B; });
+		ScoreValues.Sort([](float A, float B) { return A < B; });
 
 		// adds the top 5 values to the scorevalues TMap
 		int32 Count = 0;
-		for (int32 i = 0; i < ScoreValues.Num() && Count < 5; ++i)
+		for (float i = 0; i < ScoreValues.Num() && Count < 5; ++i)
 		{
     		for (auto& Pair : Usernames)
     		{	
@@ -133,7 +142,7 @@ bool AUsernameInput::IsUsernameValidLength(FString InputUsername)
 bool AUsernameInput::IsUsernameTaken(FString InputUsername)
 {
 	// searchs the Usernames Map for the username that has been selected by the player
-	int32* Pointer = Usernames.Find(Username);
+	float* Pointer = Usernames.Find(Username);
 	// If the Username is not found the function will return nullptr and the function will return true
 	// If it is found it will send a valid pointer and the function will return false
 	if (Pointer != nullptr)
@@ -210,6 +219,5 @@ TMap<FString, int32> GetTop5Users(TMap<FString, int32> Usernames)
 
     return Top5Users;
 }
-
 
 

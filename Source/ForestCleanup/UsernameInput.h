@@ -67,18 +67,23 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 TimeAtUserSet;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MillisecondsPassed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool SubtractStartTime;
 	// Collections
 
 	// A TMap is an Unreal engine dynamically sized Dictionary
 	// Here you can see that the Dictionary has been set to use a string as the key and an integer as the value
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TMap<FString, int32> Usernames;
+	TMap<FString, float> Usernames;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TMap<FString, int32> Scoreboard;
+	TMap<FString, float> Scoreboard;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<int32> ScoreValues;
+	TArray<float> ScoreValues;
 
 	// Functions
 
