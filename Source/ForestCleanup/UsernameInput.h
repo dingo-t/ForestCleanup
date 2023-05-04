@@ -25,7 +25,7 @@ protected:
 	virtual void BeginPlay() override;
 
 
-	// everything under public is the functions and collections that i have added nothing else in this file has been added by me.
+	// Everything under public is the functions and collections that i have added
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -44,58 +44,48 @@ public:
 
 	// I need to prevent the same username from being set multiple times so this boolean variable will dictate if a new Username can be added to the Array or not
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    bool UserSet = false;
+    bool is_username_Set = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 UserLength;
+	bool game_ended = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 MaxUserLength = 10;
+	bool got_time = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool GameEnded = false;
+    int32 username_length;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool GotTime = false;
+    const int32 kMaxUserLength = 10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MapInt;
+	const int32 kMinUserLength = 4;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ReturnedTime;
+	int32 time_at_user_set;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 TimeAtUserSet;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MillisecondsPassed;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool SubtractStartTime;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MinUserLength = 4;
-
+	float time_elapsed_milliseconds;
 	
 	// Collections
 
 	// A TMap is an Unreal engine dynamically sized Dictionary
 	// Here you can see that the Dictionary has been set to use a string as the key and an integer as the value
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TMap<FString, float> Usernames;
+	TMap<FString, float> usernames_;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TMap<FString, float> Scoreboard;
+	TMap<FString, float> scoreboard_;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<float> ScoreValues;
+	TArray<float> score_values_;
 
 	// Functions
 
 	// UFUNCTION also allows Unreal to use the function in blueprints
 	// The function is set to return a boolean value and takes the parameter of the String InputUsername 
 	UFUNCTION(BlueprintCallable)
-	bool Validation(FString InputUsername); 
+	bool  IsNumeric(FString InputUsername); 
 
 	// This function checks if a Username is not outside the max boundary of 20 characters 
 	UFUNCTION(BlueprintCallable)
@@ -105,13 +95,13 @@ public:
 	bool IsUsernameTaken(FString InputUsername);
 
 	UFUNCTION(BlueprintCallable)
-	bool VerifyUsername(FString InputUsername);
+	bool CheckUsername(FString InputUsername);
 
 	UFUNCTION(BlueprintCallable)
 	void SetUsername(FString InputUsername);
 
 	UFUNCTION(BlueprintCallable)
-	int GetTime(int32 UserSetTime);
+	int32 GetTimeElapsedSinceUserSet(int32 UserSetTime);
 
 	
 };
