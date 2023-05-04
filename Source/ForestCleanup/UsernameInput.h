@@ -72,6 +72,11 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool SubtractStartTime;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MinUserLength = 4;
+
+	
 	// Collections
 
 	// A TMap is an Unreal engine dynamically sized Dictionary
@@ -94,7 +99,7 @@ public:
 
 	// This function checks if a Username is not outside the max boundary of 20 characters 
 	UFUNCTION(BlueprintCallable)
-	bool IsUsernameValidLength(FString InputUsername); 
+	int32 IsUsernameValidLength(FString InputUsername); 
 
 	UFUNCTION(BlueprintCallable)
 	bool IsUsernameTaken(FString InputUsername);

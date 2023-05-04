@@ -124,18 +124,23 @@ bool AUsernameInput::Validation(FString InputUsername)
 }
 
 // this function makes sure that the Username is shorter than a certain length that is controlled by a variable
-bool AUsernameInput::IsUsernameValidLength(FString InputUsername) 
+int32 AUsernameInput::IsUsernameValidLength(FString InputUsername) 
 {
 	UserLength = Username.Len();
 	// if statement comparing the length of the username with the MaxUserLength that has been set
-	if (UserLength < MaxUserLength)
+	if (UserLength > MaxUserLength)
 	{
-		return false;
+		return 1;
 	}
-	else
+	else if (UserLength < MinUserLength)
 	{
-		return true;
+		return 2;
 	}
+	else 
+	{
+		return 0;
+	}
+	
 }
 
 // this function checks the TMap to make sure that an Inputted Username is not already in use
@@ -160,7 +165,7 @@ bool AUsernameInput::IsUsernameTaken(FString InputUsername)
 bool AUsernameInput::VerifyUsername(FString InputUsername)
 {
 	// checking every validation function to make sure the username fits all the criteria
-	if (IsUsernameTaken(Username) || IsUsernameValidLength(Username) || Validation(Username))
+	if (IsUsernameTaken(Username) || IsUsernameValidLength(Username) == 0 || Validation(Username))
 	{
 		return false;
 	}
